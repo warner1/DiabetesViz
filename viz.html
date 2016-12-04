@@ -1,0 +1,298 @@
+<!doctype html>
+<head>
+  <meta charset="utf-8">
+  <title>Diabetes Risks Interactive Data Visualizations & Tool</title>
+  <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/stepper.css">
+  <link rel="stylesheet" href="css/bchart.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+  <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+  <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+</head>
+<body>
+  <div id="container">
+    <a href="http://students.washington.edu/bthaib/final498/"><h1>Diabetes Risks Interactive Data Visualizations & Tool</h1></a>
+    <div id="vis-nav">
+      <a href="#" id="step1" class="step-link active" class="btn btn-default">Number of Cases</a>
+      <a href="#" id="step2" class="step-link" class="btn btn-default">Lifestyle Effects</a>
+      <a href="#" id="step3" class="step-link" class="btn btn-default">Blood Pressure Level</a>
+      <a href="#" id="step4" class="step-link" class="btn btn-default">Risk Calculator</a>
+      <a href="#" id="step5" class="step-link" class="btn btn-default">Body Mass Index</a>
+
+      <a href="glucosetool/index.html" id="step5" class="step-link" class="btn btn-default">Visualizing Glucose Levels</a>
+
+
+    </div>
+    <div id="vis-container">
+      <div id="annotation-steps">
+
+         <div class="annotation-step" id="step1-annotation" style="display:block;">
+          <div id="step1-left-annotation" style="margin-top: 50px">
+          <h5>From 1980 through 2013, the number of adults in the United States aged 18–79 with newly diagnosed diabetes more than tripled from 493,000 in 1980 to over 1.4 million in 2013. The number of new cases of diabetes has increased since the early 1990s through 2000s. After 2009, the number of cases has changed little.</h5>
+         <small>Source: http://www.cdc.gov/diabetes/home/index.html</small>
+
+        </div>
+          <div class="annotation" id="step1-center-annotation" >
+            <h4>Number of New Cases of Diagnosed Diabetes Among Adults from 1980–2013</h4>
+            <div id="t2"></div>
+          </div>
+        </div>
+
+        <div class="annotation-step" id="step2-annotation">
+          <div class="annotation" id="step2-left-annotation" >
+            <h5>Select 2 or more options</h5>
+            <h4>Which of the following foods do you eat?</h4>
+            <div class="checkbox">
+              <label><input id="one" type="checkbox" value="Nuts">Nuts</label>
+            </div>
+            <div class="checkbox">
+              <label><input id="two" type="checkbox" value="Coffee">Coffee</label>
+            </div>
+            <div class="checkbox">
+              <label><input id="three" type="checkbox" value="White Rice">White Rice</label>
+            </div>
+            <div class="checkbox">
+              <label><input id="four" type="checkbox" value="Sugery Drinks">Sugary Drinks</label>
+            </div>
+            <div class="checkbox">
+              <label><input id="five" type="checkbox" value="">Yogurt</label>
+            </div>
+            <div class="checkbox">
+              <label><input id="six" type="checkbox" value="">Brown Rice</label>
+            </div>
+            <div class="checkbox">
+              <label><input id="seven" type="checkbox" value="">Fruit Drinks</label>
+            </div>
+            <div class="checkbox">
+              <label><input id="eight" type="checkbox" value="">Red Meat (3 oz)</label>
+            </div>
+            <div class="checkbox">
+              <label><input id="nine" type="checkbox" value="">Bacon (2 slices)</label>
+            </div>
+            <div class="checkbox">
+              <label><input id="ten" type="checkbox" value="">Hot Dog</label>
+            </div>
+            <div class="checkbox">
+              <label><input id="eleven" type="checkbox" value="">Poultry</label>
+            </div>
+            <div class="checkbox">
+              <label><input id="tweleve" type="checkbox" value="">Fish</label>
+            </div>
+            <div class="checkbox">
+              <label><input id="thirteen" type="checkbox" value="">Fast Food</label>
+            </div>
+            <div class="checkbox">
+              <label><input id="fourteen" type="checkbox" value="">Dairy</label>
+            </div>
+            <h4>Which of the following activities do you do?</h4>
+            <div class="checkbox">
+              <label><input id="fifteen" type="checkbox" value="">TV (2 hours)</label>
+            </div>
+            <div class="checkbox">
+              <label><input id="sixteen" type="checkbox" value="">Walking (1/2 hour)</label>
+            </div> 
+            <div class="checkbox">
+              <label><input id="seventeen" type="checkbox" value="">Smoking</label>
+            </div>   
+          </div>
+          <div class="annotation" id="step2-right-annotation" >
+            <h4>Your lifestyle affects your risk of having diabetes. </h4>
+            <h5>Things that increase your risk are displayed in red and things that decrease your risk are displayed in green on the bar chart. Hover over the bars to learn more.</h5>
+            <p id="barchart"></p>
+          </div>
+        </div>
+
+        <div class="annotation-step" id="step3-annotation">
+          <div class="annotation" id="step3-high-annotation" style="width: 600px;">
+            <h4>Age vs. Blood Pressure</h4>
+            <p>People with diabetes are more likely to also have high blood pressure or hypertension. The chance of having high blood pressure increases as you get older. High blood pressure can increase the risk of diabetes complications such as diabetic eye and kidney problems. Managing blood pressure will be a part of a person's overall diabetes care plan.</p>
+<!--             <label>Select Range of Blood Pressure Level: &nbsp;</label>
+            <p id="amount" style="border: 0; color: red; font-weight: bold;">
+            <div id="slider-range"></div>
+            <br>
+ -->            <div id="scatter">
+              <!-- <script type="text/javascript" src="js/chart3.js"></script> -->
+            </div>            
+          </div>                    
+        </div>
+
+        <div class="annotation-step" id="step4-annotation">
+          <div class="annotation" id="step4-high-annotation" >
+
+              <label for="age">How old are you?</label>
+                <select name="" id="age">
+                  <option selected="true" disabled="disabled">Select</option>    
+                  <option value="0">Less Than 40 years</option>
+                  <option value="1">40 - 49 years</option>
+                  <option value="2">50 - 59 years</option>
+                  <option value="3">60 years or older</option>
+                </select>
+
+              <br /> 
+              <br />  
+
+              <label for="gender">Gender:</label>
+                <select name="" id="gender">
+                  <option selected="true" disabled="disabled">Select</option>    
+                  <option value="m">Male</option>
+                  <option value="f">Female</option>
+                </select>
+              
+              <br />
+              <br />  
+
+              <div id="genstational" style="display:none">
+                <label for="genstationalD">Have you ever been
+                    diagnosed with gestational diabetes?</label>
+                  <input type="radio" name="genstational" value="y"> Yes
+                  <input type="radio" name="genstational" value="n" checked> No
+                  <br /> 
+                  <br />
+              </div> 
+
+              <label for="">Do you have a mother, father, sister, or
+                brother with diabetes?</label>
+                <input type="radio" name="diabetes" value="y"> Yes
+                <input type="radio" name="diabetes" value="n" checked> No
+
+              <br />
+              <br />  
+
+              <label for="">Have you ever been diagnosed with high
+                blood pressure?</label>
+                <input type="radio" name="highbp" value="y"> Yes
+                <input type="radio" name="highbp" value="n" checked> No
+
+              <br />  
+              <br />
+
+              <label for="">Are you physically active?</label>
+                <br/>
+                <input type="radio" name="physical" value="y"> Yes
+                <input type="radio" name="physical" value="n" checked> No
+
+              <br />
+              <br /> 
+
+              <label for="height">Height:</label>
+                <select name="" id="height">
+                  <option selected="true" disabled="disabled">Select</option>    
+                  <option value="0">4’10”</option>
+                  <option value="1">4’ 11”</option>
+                  <option value="2">5’ 0”</option>
+                  <option value="3">5’ 1”</option>
+                  <option value="4">5’ 2”</option>
+                  <option value="5">5’ 3”</option>
+                  <option value="6">5’ 4”</option>
+                  <option value="7">5’ 5”</option>
+                  <option value="8">5’ 6”</option>
+                  <option value="9">5’ 7”</option>
+                  <option value="10">5’ 8”</option>
+                  <option value="11">5’ 9”</option>
+                  <option value="12">5’ 10”</option>
+                  <option value="13">5' 11"</option>
+                  <option value="14">6' 0"</option>
+                  <option value="15">6' 1"</option>
+                  <option value="16">6' 2"</option>
+                  <option value="17">6' 3"</option>
+                  <option value="18">6' 4"</option>
+                </select>
+
+              <br />
+
+              <label for="weight">Weight (lbs):</label>
+                <input type="number" id="weight" value="Weight (in pounds)">
+
+              <br /> 
+              <br />
+
+              <p id="errorMessage"></p>
+              <button id="submit">Submit</button>
+              <br />
+              <br />
+
+              <a href="http://main.diabetes.org/dorg/PDFs/risk-test-paper-version.pdf"><small>Source: Adapted from Bang et al., Ann Intern Med
+              151:775-783, 2009.</small>
+
+              <br />
+
+              <small>Original algorithm was validated without
+              gestational diabetes as part of the model.</small></a>
+
+          </div>
+          <div class="annotation" id="step4-low-annotation" >
+            <h2 id="score"></h4>
+            <p id="max"></p>
+            <h3 id="risk"></h3>
+            <div id="info-detail">
+            </div>
+            <div id="tallied">
+            </div>
+          </div>
+
+          <div class="annotation" id="step4-risks" >
+            <ul id="mylist">        
+            </ul>
+          </div>
+        </div>
+
+        <div class="annotation-step" id="step5-annotation">
+
+          <div style="float: left; display: inline-block; padding: 5px; margin-right: 10px">
+<b>BMI Categories: </b>
+<br>
+
+<span style="background-color: #FFA7A7">Obesity = BMI of 30 or greater</span>
+<br>
+<span style="background-color: #FFFFD6">Overweight = 25–29.9 </span>
+<br>
+<span style="background-color: #C1E6C3">Normal weight = 18.5–24.9</span>
+<br>
+<span style="background-color: gray">Underweight = <18.5</span>
+<br>
+
+<br>
+          </div>
+
+          <div><h5>Your Body Mass Index (BMI) can have an incremental impact on the risk of developing Type II Diabetes. Being overweight is classified with an index between 25 and 29.9 and higher classes go up in 5 index increments all the way up to 40 which is Obesity Class III. Type II Diabetes risk may be incrementally higher in those with a higher body mass index. It is important to understand the risk factors of managing your BMI to shorten the time to diagnose and treat Type II Diabetes.</h5></div>
+
+          <form>
+            <h4>Input your height and weight to compare yourself to the average adult</h4>
+      <label>Height (in inches)</label> <input type="number" id="uHeight" name="uHeight">
+      <label>Weight (in pounds)</label> <input type="number" id="uWeight" name="uWeight">
+      <button type="button" id="bmisubmit">Submit</button>
+      <button type="button" id="bmireset">Reset</button>
+    </form>
+          <div id="bmig"></div>
+        <div style="margin-left: 30px">
+          <span style="color: rgb(31, 119, 180); margin-right: 20px">Average Male BMI </span>
+          <span style="color: rgb(255, 127, 14)"> Average Female BMI</span>
+        </div>
+        </div>
+
+
+
+      </div>
+      <div id="vis-canvas"></div>
+    </div>
+  </div>
+
+  <script src="js/bchart.js"></script>
+  <script src="js/riskCalc.js"></script>
+  <script src="js/stepper.js"></script>
+  <script src="js/lifestyle.js"></script>
+  <script src="js/pressure.js"></script>
+    <script src="js/bmi.js"></script>  
+  <script src="js/cases.js"></script>  
+
+</body>
